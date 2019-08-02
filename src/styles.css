@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    background-color: #c6f1d6;
+    margin: 0;
+}
+
+html, body{
+    height: 100%;
+}
+
+.container{
+     height: 100%;
+}
+
+.item {
+   max-width: 920px !important;
+   margin-bottom: 25px;
+   padding-left: 10px;
+   padding-right: 10px;
+}

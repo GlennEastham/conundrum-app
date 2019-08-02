@@ -1,0 +1,42 @@
+.svg-letter {
+  fill: black;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+
+.svg-letter-selected {
+  fill: black;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+
+.svg-square {
+  fill: white;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+
+.svg-square-hovering {
+    fill: #e0f5b9;
+    transition: all ease 0.3s;
+    cursor: pointer;
+}
+
+.svg-square-selected {
+  fill: #ebce95;
+  transition: all ease 0.3s;
+  cursor: pointer;
+}
+
+.entry-underline{
+  border-radius: 20px;
+  position: absolute;
+  align-self: flex-end;
+  height: 5%;
+  background-color: black;
+  width: 80%;
+}
+
+.divider{
+  height: 60px;
+}
