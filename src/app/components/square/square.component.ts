@@ -52,12 +52,12 @@ export class SquareComponent implements OnInit {
 
     ngOnInit() {
         this.wordService.getWord().subscribe(wordData => {
-            let word = wordData.word;
+            let word = wordData;
             let tempSquares = [];
             let tempEntries = [];
             let tempActions = [];
             let j = 0;
-            for (let letter of word) {
+            for (let letter of word['word']) {
                 let letterObject = {};
                 letterObject = {
                     id: j, letter: letter, letterPath: letterPaths[letter], selected: false, enteredAtSquare: null
