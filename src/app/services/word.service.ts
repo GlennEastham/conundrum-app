@@ -15,8 +15,8 @@ const httpOptions = {
 })
 
 export class WordService {
-  wordsURL:string = 'http://conundrum-api.herokuapp.com/conundrum'
-  
+  wordsURL:string = 'https://conundrum-api.herokuapp.com/conundrum'
+
   constructor(private http:HttpClient) { }
 
   getWord():Observable<Word[]> {
