@@ -122,8 +122,8 @@ export class SquareComponent implements OnInit {
     }
 
     newWord() {
-        this.setupWord();
         this.getNew.hovering = false;
+        this.setupWord();
     }
 
     resetWord() {
