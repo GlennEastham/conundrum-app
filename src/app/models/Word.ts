@@ -1,4 +1,4 @@
 export class Word {
-    id: string;
+    uuid: string;
     word: string;
 }

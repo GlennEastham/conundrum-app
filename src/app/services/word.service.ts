@@ -19,8 +19,11 @@ export class WordService {
 
   constructor(private http:HttpClient) { }
 
-  getWord():Observable<Word[]> {
-    return this.http.get<Word[]>(`${this.wordsURL}`);
+  getWord():Observable<Word> {
+    return this.http.get<Word>(`${this.wordsURL}`);
   }
 
+  submitWord(word:Word):Observable<any>{
+    return this.http.post(this.wordsURL, word, httpOptions);
+  }
 }
