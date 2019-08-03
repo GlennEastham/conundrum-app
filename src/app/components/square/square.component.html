@@ -17,7 +17,7 @@
     </mat-grid-tile>
 </mat-grid-list>
 <div [ngStyle]="{'height': dividerSize}"></div>
-<mat-grid-list [@gameBoardFadeIn]="!gameState.newBoardAnimation" [@gameBoardFadeOut]="gameState.correctEntryAnimation" class="item-container" [ngClass]="{'svg-action-hovering': gameState.hovering}" cols="5" rowHeight="50" (window:resize)="onResize($event)" gutterSize="10">
+<mat-grid-list [@gameBoardFadeIn]="!gameState.newBoardAnimation" [@gameBoardFadeOut]="gameState.correctEntryAnimation" class="item-container" cols="5" rowHeight="50" (window:resize)="onResize($event)" gutterSize="10">
     <mat-grid-tile>
         <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}" (mouseenter)="hoverAction(reset)"
             (mouseleave)="leaveAction(reset)" (click)="resetWord()">
