@@ -53,7 +53,7 @@
     <mat-grid-tile></mat-grid-tile>
     <mat-grid-tile>
         <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}" (mouseenter)="hoverAction(getNew)"
-            (mouseleave)="leaveAction(getNew)" (click)="newWord()">
+            (mouseleave)="leaveAction(getNew)" (click)="newWord(getNew)">
             <svg version="1.1" viewBox="0 0 18 18">
                 <svg:path class="svg-action" [ngClass]="{'svg-action-hovering': getNew.hovering}" d="M11,4.976l4.133,4.025L11,13.027V9.002V4.976 M10.8,2.7C9.806,2.7,9,3.507,9,4.501v4.5v4.5
                         c0,0.994,0.806,1.799,1.8,1.799c0.488,0,0.93-0.195,1.253-0.512C14.434,12.474,18,9.001,18,9.001s-3.566-3.475-5.944-5.789

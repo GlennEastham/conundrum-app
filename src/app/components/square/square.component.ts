@@ -121,8 +121,8 @@ export class SquareComponent implements OnInit {
         action.hovering = false;
     }
 
-    newWord() {
-        this.getNew.hovering = false;
+    newWord(action: Action) {
+        action.hovering = false;
         this.setupWord();
     }
 
