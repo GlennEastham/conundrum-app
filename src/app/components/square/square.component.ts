@@ -121,8 +121,7 @@ export class SquareComponent implements OnInit {
         action.hovering = false;
     }
 
-    newWord(action: Action) {
-        action.hovering = false;
+    newWord() {
         this.setupWord();
     }
 
@@ -209,6 +208,7 @@ export class SquareComponent implements OnInit {
         this.selectionCount = 0;
         this.gameState.correctEntry = false;
         this.gameState.incorrectEntry = false;
+        this.getNew.hovering = false;
         this.shuffleWord(); 
     }
 
