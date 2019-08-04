@@ -161,7 +161,7 @@ export class SquareComponent implements OnInit {
             }
         });
         if (word.word === checkWord.word) {
-            let randomSuccessWordId = Math.floor(Math.random() * 43);
+            let randomSuccessWordId = Math.floor(Math.random() * 42);
             this.successWord = successWords[randomSuccessWordId];
             this.gameState.correctEntryAnimation = true;
             return true;
@@ -211,6 +211,7 @@ export class SquareComponent implements OnInit {
 
     onResize(event) {
         this.dividerSize = (event.target.innerWidth <= 640) ? '100px' : '60px';
+        this.dividerSize = (event.target.innerHeight <= 360) ? '40px' : this.dividerSize;
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
         this.menuColumns = (event.target.innerWidth <= 640) ? 6 : 6;
     }
@@ -218,6 +219,7 @@ export class SquareComponent implements OnInit {
     ngOnInit() {
         this.setupWord();
         this.dividerSize = (window.innerWidth <= 640) ? '100px' : '60px';
+        this.dividerSize = (window.innerHeight <= 360) ? '40px' : this.dividerSize;
         this.iconSize = (window.innerWidth <= 640) ? '35px' : '50px';
         this.menuColumns = (window.innerWidth <= 640) ? 6 : 6;
     }
