@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, transition, useAnimation, state, animate, style, keyframes } from '@angular/animations';
-import { shake, flipInY, fadeOut } from 'ng-animate';
-
+import { trigger, transition, animate, style, keyframes } from '@angular/animations';
 import { Action } from '../../models/Action';
 import { Entry } from '../../models/Entry';
 import { GameState } from '../../models/GameState';
 import { Square } from '../../models/Square';
 import { Word } from '../../models/Word';
 import { WordService } from '../../services/word.service';
-import iconPaths from "../../../assets/iconPaths.json";
 import letterPaths from "../../../assets/letterPaths.json";
 import words from "../../../assets/words.json";
 import successWords from "../../../assets/successWords.json";
@@ -19,7 +16,7 @@ import successWords from "../../../assets/successWords.json";
     styleUrls: ['./square.component.scss'],
     animations: [
         trigger('shake', [
-            transition('false=>true', animate('1.5s ease-in', keyframes([
+            transition('false=>true', animate('1.5s ease', keyframes([
                 style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.1 }),
                 style({ transform: 'translate3d(2px, 0, 0)', offset: 0.2 }),
                 style({ transform: 'translate3d(-4px, 0, 0)', offset: 0.3 }),
@@ -33,21 +30,21 @@ import successWords from "../../../assets/successWords.json";
         ]),
         trigger('success', [
             transition('false=>true', [
-                style({ fontSize: 30, opacity: 1 }),
-                animate('1.1s ease-in', style({ fontSize: 160, opacity: 1 }))
+                style({ fontSize: 30, opacity: 0 }),
+                animate('1.1s ease', style({ fontSize: 130, opacity: 1 }))
             ])
         ]),
         trigger('gameBoardFadeIn', [    
             transition('true=>false', [
                 style({ opacity:0 }),
-                animate('2s ease-in', style({ opacity: 1 })),
+                animate('2s ease', style({ opacity: 1 })),
             ])
         ]),
         trigger('gameBoardFadeOut', [
             transition('false=>true', [
                 style({ opacity:1 }),
-                animate('0.3s ease-out', style({ opacity: 0 })),
-                animate('0.8s ease-out', style({ opacity: 0 })),
+                animate('0.3s ease', style({ opacity: 0 })),
+                animate('0.8s ease', style({ opacity: 0 })),
             ])
         ]),
     ]
@@ -63,8 +60,8 @@ export class SquareComponent implements OnInit {
     shuffle: Action = new Action;
     getNew: Action = new Action;
     reset: Action = new Action;
-    firstAvailableEntryPoint;
-    selectionCount;
+    firstAvailableEntryPoint = 0;
+    selectionCount = 0;
     menuColumns;
     iconSize: String = '50px';
     dividerSize: String = '60px';
@@ -124,7 +121,6 @@ export class SquareComponent implements OnInit {
     newWord() {
         this.getNew.hovering = false;
         this.setupWord();
-        
     }
 
     resetWord() {

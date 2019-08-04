@@ -51,7 +51,12 @@
 
 .svg-action{
   transition: all ease 0.3s;
-  fill: #1c3524;
+  fill: #353535;
+}
+
+.svg-action-disabled{
+  transition: all ease 0.3s;
+  opacity: 0.1;
 }
 
 .svg-action-hovering{
@@ -97,7 +102,7 @@
 .success-text {
   opacity: 0;
   text-align: center;
-  color: #269490;
+  color: #353535;
   font-family: ChewyRegular;
   font-size: 30px;
   -webkit-order: 0;
