@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, transition, animate, style, keyframes } from '@angular/animations';
+import { trigger, state, transition, animate, style, keyframes } from '@angular/animations';
 import { Action } from '../../models/Action';
 import { Entry } from '../../models/Entry';
 import { GameState } from '../../models/GameState';
@@ -7,7 +7,7 @@ import { Square } from '../../models/Square';
 import { Word } from '../../models/Word';
 import { WordService } from '../../services/word.service';
 import letterPaths from "../../../assets/letterPaths.json";
-import words from "../../../assets/words.json";
+import words from "../../../assets/conundrums_nine.json";
 import successWords from "../../../assets/successWords.json";
 
 @Component({
@@ -29,24 +29,34 @@ import successWords from "../../../assets/successWords.json";
             ]))),
         ]),
         trigger('success', [
+            state("false", style({ opacity: 0 })),
             transition('false=>true', [
                 style({ fontSize: 30, opacity: 0 }),
                 animate('1.1s ease', style({ fontSize: 130, opacity: 1 }))
             ])
         ]),
-        trigger('gameBoardFadeIn', [    
-            transition('true=>false', [
-                style({ opacity:0 }),
-                animate('2s ease', style({ opacity: 1 })),
-            ])
-        ]),
-        trigger('gameBoardFadeOut', [
+        trigger('timeUp', [
+            state("true", style({ opacity: 1 })),
+            state("false", style({ opacity: 0 })),
             transition('false=>true', [
-                style({ opacity:1 }),
-                animate('0.3s ease', style({ opacity: 0 })),
-                animate('0.8s ease', style({ opacity: 0 })),
+                style({ opacity: 0 }),
+                animate('1.1s ease', style({ opacity: 1 }))
+            ]),
+            transition('true=>false', [
+                style({ opacity: 1 }),
+                animate('0.4s ease', style({ opacity: 0 }))
             ])
         ]),
+        trigger('gameBoardFade', [    
+            state("true", style({ opacity: 1 })),
+            state("false", style({ opacity: 0 })),
+            transition('true=>false', [
+                animate('0.4s ease', style({ opacity: 0 })),
+            ]),
+            transition('false=>true', [
+                animate('1.2s ease', style({ opacity: 1 })),
+            ])
+        ])
     ]
 })
 
@@ -62,12 +72,32 @@ export class SquareComponent implements OnInit {
     reset: Action = new Action;
     firstAvailableEntryPoint = 0;
     selectionCount = 0;
+    timeLeft = 60;
+    duration = 60;
+    timerRate;
     menuColumns;
     iconSize: String = '50px';
     dividerSize: String = '60px';
+    smallDividerSize: String = '30px';
     successWord: String = '';
-    
+    interval;
     constructor(private wordService: WordService) { }
+
+    startTimer() {
+        this.interval = setInterval(() => {
+            this.timerRate = 1 - (this.timeLeft - 1) / this.duration;
+            if(this.timeLeft > 0) {
+                this.timeLeft--;
+            } else {
+                this.timeUp();
+            }
+        },1000)
+    }
+
+    timeUp(){
+        this.gameState.timeUp = true;
+        this.gameState.active = false;
+    }
 
     selectSquare(square: Square) {
         square.selected = !square.selected;
@@ -161,9 +191,9 @@ export class SquareComponent implements OnInit {
             }
         });
         if (word.word === checkWord.word) {
-            let randomSuccessWordId = Math.floor(Math.random() * 42);
-            this.successWord = successWords[randomSuccessWordId];
-            this.gameState.correctEntryAnimation = true;
+            this.successWord = successWords[Math.floor(Math.random() * successWords.length)].word;
+            this.gameState.correctEntry = true;
+            this.gameState.active = false;
             return true;
         } else {
             this.gameState.incorrectEntry = true;
@@ -171,8 +201,7 @@ export class SquareComponent implements OnInit {
         }
     }
 
-    correctEntry() {
-        this.gameState.correctEntryAnimation = false;
+    loadNewGame() {
         this.gameState.newBoardAnimation = true;
         this.setupWord();
     }
@@ -182,7 +211,7 @@ export class SquareComponent implements OnInit {
         let tempSquares = [];
         let tempEntries = [];
         let j = 0;
-        for (let letter of wordData.word) {
+        for (let letter of wordData.conundrum) {
             let letterObject = {};
             letterObject = {
                 id: j, letter: letter, letterPath: letterPaths[letter], selected: false, enteredAtSquare: null
@@ -204,22 +233,31 @@ export class SquareComponent implements OnInit {
         this.enteredWord.uuid = this.currentWord.uuid;
         this.firstAvailableEntryPoint = 0;
         this.selectionCount = 0;
+        this.timeLeft = this.duration;
         this.gameState.correctEntry = false;
         this.gameState.incorrectEntry = false;
-        this.shuffleWord(); 
+        this.gameState.timeUp = false;
+        this.gameState.active= true;
+        
+        // this.shuffleWord(); 
     }
 
     onResize(event) {
         this.dividerSize = (event.target.innerWidth <= 640) ? '100px' : '60px';
         this.dividerSize = (event.target.innerHeight <= 360) ? '40px' : this.dividerSize;
+        this.smallDividerSize = (event.target.innerWidth <= 640) ? '50px' : '30px';
+        this.smallDividerSize = (event.target.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
         this.menuColumns = (event.target.innerWidth <= 640) ? 6 : 6;
     }
 
     ngOnInit() {
         this.setupWord();
+        this.startTimer();
         this.dividerSize = (window.innerWidth <= 640) ? '100px' : '60px';
         this.dividerSize = (window.innerHeight <= 360) ? '40px' : this.dividerSize;
+        this.smallDividerSize = (window.innerWidth <= 640) ? '50px' : '30px';
+        this.smallDividerSize = (window.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (window.innerWidth <= 640) ? '35px' : '50px';
         this.menuColumns = (window.innerWidth <= 640) ? 6 : 6;
     }

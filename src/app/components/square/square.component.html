@@ -1,93 +1,104 @@
-<mat-grid-list [@gameBoardFadeIn]="!gameState.newBoardAnimation" [@gameBoardFadeOut]="gameState.correctEntryAnimation" class="animated item-container" [@shake]="gameState.incorrectEntry" cols="9" rowHeight="1:1" gutterSize="10">
-    <mat-grid-tile *ngFor="let entry of entries">
-        <div style="height: 100%; width: 100%">
-            <svg viewBox="0 0 512 512">
-                <svg:g transform="matrix(1.25 0 0 -1.25 0 45)">
-                    <svg:path [ngClass]="{
-                        'svg-letter-selected': entry.selected,
-                        'svg-letter': !entry.selected
-                      }" [attr.d]="entry.letterPath" />
-                </svg:g>
-            </svg>
+<div [@gameBoardFade]="gameState.active" class="game-board">
+    <mat-grid-list class="animated item-container" [@shake]="gameState.incorrectEntry" cols="9" rowHeight="1:1"
+        gutterSize="10">
+        <mat-grid-tile *ngFor="let entry of entries">
+            <div style="height: 100%; width: 100%">
+                <svg viewBox="0 0 512 512">
+                    <svg:g transform="matrix(1.25 0 0 -1.25 0 45)">
+                        <svg:path [ngClass]="{
+                            'svg-letter-selected': entry.selected,
+                            'svg-letter': !entry.selected
+                        }" [attr.d]="entry.letterPath" />
+                    </svg:g>
+                </svg>
+            </div>
+            <div [ngClass]="{
+                    'svg-letter-selected': entry.selected,
+                    'entry-underline': !entry.selected
+                }"></div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div [ngStyle]="{'height': smallDividerSize}"></div>
+    <mat-grid-list class="item-container" cols="5" rowHeight="50" (window:resize)="onResize($event)" gutterSize="10">
+        <mat-grid-tile>
+            <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}"
+                (mouseenter)="hoverAction(reset)" (mouseleave)="leaveAction(reset)" (click)="resetWord()">
+                <svg version="1.1" viewBox="0 0 286.054 286.054">
+                    <svg:path class="svg-action"
+                        [ngClass]="{'svg-action-hovering': reset.hovering, 'svg-action-disabled': selectionCount < 1}"
+                        d="M143.027,0C64.04,0,0,64.04,0,143.027c0,78.996,64.04,143.027,143.027,143.027
+                    s143.027-64.031,143.027-143.027C286.054,64.04,222.014,0,143.027,0z M143.027,259.236c-64.183,0-116.209-52.026-116.209-116.209
+                    S78.844,26.818,143.027,26.818s116.209,52.026,116.209,116.209S207.21,259.236,143.027,259.236z M168.352,142.938l25.289-25.289
+                    c3.486-3.486,3.486-9.145,0-12.631l-12.649-12.649c-3.495-3.486-9.145-3.495-12.64,0l-25.289,25.289l-25.271-25.271
+                    c-3.495-3.504-9.163-3.504-12.658-0.018l-12.649,12.649c-3.486,3.486-3.486,9.145,0.009,12.649l25.271,25.271l-25.217,25.217
+                    c-3.495,3.495-3.495,9.145,0,12.649l12.64,12.64c3.495,3.486,9.154,3.486,12.64,0l25.226-25.226l25.405,25.414
+                    c3.504,3.495,9.163,3.504,12.658,0.009l12.64-12.64c3.495-3.495,3.486-9.154-0.009-12.649
+                    C193.748,168.352,168.352,142.938,168.352,142.938z" />
+                </svg>
+            </span>
+        </mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile>
+            <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}">
+                <div class="clue-text">{{timeLeft}}</div>
+            </span>
+        </mat-grid-tile>
+        <mat-grid-tile></mat-grid-tile>
+        <mat-grid-tile>
+            <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}"
+                (mouseenter)="hoverAction(getNew)" (mouseleave)="leaveAction(getNew)" (click)="newWord()">
+                <svg version="1.1" viewBox="0 0 286.054 286.054">
+                    <svg:path class="svg-action" [ngClass]="{'svg-action-hovering': getNew.hovering}" d="M0,143.022c0,78.996,64.04,143.027,143.027,143.027s143.027-64.031,143.027-143.027
+                    S222.014,0.004,143.027,0.004S0,64.045,0,143.022z M26.818,143.022c0-64.192,52.026-116.209,116.209-116.209
+                    S259.236,78.83,259.236,143.022c0,64.183-52.026,116.209-116.209,116.209S26.818,207.206,26.818,143.022z M98.26,104.959v76.207
+                    c0,6.025,4.8,8.492,9.672,5.444l35.024-22.652v17.208c0,6.025,4.8,8.492,9.672,5.444l48.987-37.464
+                    c6.195-3.611,3.933-9.413,0.107-11.621l-49.094-38.018c-4.872-3.039-9.672-0.599-9.672,5.435v17.494l-35.024-22.929
+                    C103.06,96.467,98.259,98.916,98.26,104.959z" />
+                </svg>
+            </span>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div [ngStyle]="{'height': smallDividerSize}"></div>
+    <mat-grid-list class="item-container" cols="1" rowHeight="50" (window:resize)="onResize($event)" gutterSize="10">
+        <mat-grid-tile>
+            <div class="clue-text">{{currentWord.clue}}</div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list class="item-container" cols="9" rowHeight="1:1" gutterSize="10">
+        <mat-grid-tile *ngFor="let square of squares">
+            <div style="height: 100%; width: 100%" (mouseenter)="hoverSquare(square)" (mouseleave)="leaveSquare(square)"
+                (click)="selectSquare(square)">
+                <svg viewBox="0 0 512 512">
+                    <svg:g transform="matrix(1.25 0 0 -1.25 0 45)">
+                        <svg:path [ngClass]="{
+                            'svg-square-hovering': square.hovering,
+                            'svg-square-selected': square.selected,
+                            'svg-square': !square.selected
+                        }"
+                            d="M409.6-328.089c0-25.134-20.378-45.511-45.511-45.511H45.511C20.378-373.6,0-353.222,0-328.089 V-9.511C0,15.622,20.378,36,45.511,36h318.578C389.222,36,409.6,15.622,409.6-9.511V-328.089z" />
+                        <svg:path [ngClass]="{
+                            'svg-letter-selected': square.selected,
+                            'svg-letter': !square.selected
+                        }" [attr.d]="square.letterPath" />
+                    </svg:g>
+                </svg>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div class="success-container" [ngClass]="{'front': gameState.correctEntry}">
+    <div class="success-text-holder">
+        <div [@success]="gameState.correctEntry" (@success.done)="loadNewGame()" class="success-text">{{successWord}}
         </div>
-        <div [ngClass]="{
-                'svg-letter-selected': entry.selected,
-                'entry-underline': !entry.selected
-              }"></div>
-    </mat-grid-tile>
-</mat-grid-list>
-<div [ngStyle]="{'height': dividerSize}"></div>
-<mat-grid-list [@gameBoardFadeIn]="!gameState.newBoardAnimation" [@gameBoardFadeOut]="gameState.correctEntryAnimation" class="item-container" cols="5" rowHeight="50" (window:resize)="onResize($event)" gutterSize="10">
-    <mat-grid-tile>
-        <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}" (mouseenter)="hoverAction(reset)"
-            (mouseleave)="leaveAction(reset)" (click)="resetWord()">
-            <svg version="1.1" viewBox="0 0 286.054 286.054">
-                <svg:path class="svg-action" [ngClass]="{'svg-action-hovering': reset.hovering, 'svg-action-disabled': selectionCount < 1}" d="M143.027,0C64.04,0,0,64.04,0,143.027c0,78.996,64.04,143.027,143.027,143.027
-                s143.027-64.031,143.027-143.027C286.054,64.04,222.014,0,143.027,0z M143.027,259.236c-64.183,0-116.209-52.026-116.209-116.209
-                S78.844,26.818,143.027,26.818s116.209,52.026,116.209,116.209S207.21,259.236,143.027,259.236z M168.352,142.938l25.289-25.289
-                c3.486-3.486,3.486-9.145,0-12.631l-12.649-12.649c-3.495-3.486-9.145-3.495-12.64,0l-25.289,25.289l-25.271-25.271
-                c-3.495-3.504-9.163-3.504-12.658-0.018l-12.649,12.649c-3.486,3.486-3.486,9.145,0.009,12.649l25.271,25.271l-25.217,25.217
-                c-3.495,3.495-3.495,9.145,0,12.649l12.64,12.64c3.495,3.486,9.154,3.486,12.64,0l25.226-25.226l25.405,25.414
-                c3.504,3.495,9.163,3.504,12.658,0.009l12.64-12.64c3.495-3.495,3.486-9.154-0.009-12.649
-                C193.748,168.352,168.352,142.938,168.352,142.938z" />
-            </svg>
-        </span>
-    </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile>
-        <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}"
-            (mouseenter)="hoverAction(shuffle)" (mouseleave)="leaveAction(shuffle)" (click)="shuffleWord()">
-            <svg version="1.1" viewBox="0 0 286.052 286.052">
-                <svg:path class="svg-action" [ngClass]="{'svg-action-hovering': shuffle.hovering}" d="M78.493,143.181H62.832v-0.125c0-43.623,34.809-80.328,79.201-80.122
-                c21.642,0.098,41.523,8.841,55.691,23.135l25.843-24.931c-20.864-21.043-49.693-34.049-81.534-34.049
-                c-63.629,0-115.208,51.955-115.298,116.075h-15.84c-9.708,0-13.677,6.49-8.823,14.437l33.799,33.504
-                c6.704,6.704,10.736,6.91,17.646,0l33.799-33.504C92.17,149.662,88.192,143.181,78.493,143.181z M283.978,129.236l-33.799-33.433
-                c-6.892-6.892-11.156-6.481-17.637,0l-33.799,33.433c-4.854,7.929-0.894,14.419,8.814,14.419h15.635
-                c-0.25,43.337-34.943,79.72-79.183,79.514c-21.633-0.089-41.505-8.814-55.691-23.099l-25.843,24.896
-                c20.873,21.007,49.702,33.996,81.534,33.996c63.432,0,114.869-51.579,115.28-115.298h15.867
-                C284.872,143.655,288.832,137.156,283.978,129.236z" />
-            </svg>
-        </span>
-    </mat-grid-tile>
-    <mat-grid-tile></mat-grid-tile>
-    <mat-grid-tile>
-        <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}" (mouseenter)="hoverAction(getNew)"
-            (mouseleave)="leaveAction(getNew)" (click)="newWord()">
-            <svg version="1.1" viewBox="0 0 286.054 286.054">
-                <svg:path class="svg-action" [ngClass]="{'svg-action-hovering': getNew.hovering}" d="M0,143.022c0,78.996,64.04,143.027,143.027,143.027s143.027-64.031,143.027-143.027
-                S222.014,0.004,143.027,0.004S0,64.045,0,143.022z M26.818,143.022c0-64.192,52.026-116.209,116.209-116.209
-                S259.236,78.83,259.236,143.022c0,64.183-52.026,116.209-116.209,116.209S26.818,207.206,26.818,143.022z M98.26,104.959v76.207
-                c0,6.025,4.8,8.492,9.672,5.444l35.024-22.652v17.208c0,6.025,4.8,8.492,9.672,5.444l48.987-37.464
-                c6.195-3.611,3.933-9.413,0.107-11.621l-49.094-38.018c-4.872-3.039-9.672-0.599-9.672,5.435v17.494l-35.024-22.929
-                C103.06,96.467,98.259,98.916,98.26,104.959z" />
-            </svg>
-        </span>
-    </mat-grid-tile>
-</mat-grid-list>
-<div [ngStyle]="{'height': dividerSize}"></div>
-<mat-grid-list [@gameBoardFadeIn]="!gameState.newBoardAnimation" [@gameBoardFadeOut]="gameState.correctEntryAnimation" class="item-container" cols="9" rowHeight="1:1" gutterSize="10">
-    <mat-grid-tile *ngFor="let square of squares">
-        <div style="height: 100%; width: 100%" (mouseenter)="hoverSquare(square)" (mouseleave)="leaveSquare(square)"
-            (click)="selectSquare(square)">
-            <svg viewBox="0 0 512 512">
-                <svg:g transform="matrix(1.25 0 0 -1.25 0 45)">
-                    <svg:path [ngClass]="{
-                        'svg-square-hovering': square.hovering,
-                        'svg-square-selected': square.selected,
-                        'svg-square': !square.selected
-                    }"
-                        d="M409.6-328.089c0-25.134-20.378-45.511-45.511-45.511H45.511C20.378-373.6,0-353.222,0-328.089 V-9.511C0,15.622,20.378,36,45.511,36h318.578C389.222,36,409.6,15.622,409.6-9.511V-328.089z" />
-                    <svg:path [ngClass]="{
-                        'svg-letter-selected': square.selected,
-                        'svg-letter': !square.selected
-                    }" [attr.d]="square.letterPath" />
-                </svg:g>
-            </svg>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
-<div class="success-container" [ngClass]="{'front': gameState.correctEntryAnimation}">
-    <div class="success-text-holder" >
-        <div [@success]="gameState.correctEntryAnimation"  (@success.done)="correctEntry()" class="success-text">{{successWord}}</div>
+    </div>
+</div>
+<div class="success-container" [ngClass]="{'front': gameState.timeUp}">
+    <div class="success-text-holder">
+        <div [@timeUp]="gameState.timeUp" class="success-text">Times up</div>
+        <div [ngStyle]="{'height': smallDividerSize}"></div>
+        <div [@timeUp]="gameState.timeUp" class="success-text">The word was {{currentWord.word}}</div>
+        <div [ngStyle]="{'height': smallDividerSize}"></div>
+        <button [@timeUp]="gameState.timeUp" class="game-button-white" mat-raised-button (click)="loadNewGame()">New
+            Word</button>
     </div>
 </div>
