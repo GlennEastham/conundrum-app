@@ -1,7 +1,8 @@
 export class GameState {
-    incorrectEntry: Boolean;
     correctEntry: Boolean;
-    correctEntryAnimation: Boolean = false;
+    incorrectEntry: Boolean;
+    timeUp: Boolean = false;
+    active: Boolean = false;
     newBoard: Boolean = false;
     newBoardAnimation: Boolean = false;
 }
