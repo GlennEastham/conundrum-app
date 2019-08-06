@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "ng-animate": "^0.3.4",
     "ng-inline-svg": "^8.5.1",
+    "ngx-fit-text": "0.0.10",
     "path": "^0.12.7",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

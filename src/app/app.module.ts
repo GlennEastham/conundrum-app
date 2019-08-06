@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
 import { GameComponent } from './components/game/game.component';
+import { NgxFitTextModule } from 'ngx-fit-text';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { GameComponent } from './components/game/game.component';
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxFitTextModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

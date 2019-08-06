@@ -41,10 +41,6 @@ import successWords from "../../../assets/successWords.json";
             transition('false=>true', [
                 style({ opacity: 0 }),
                 animate('1.1s ease', style({ opacity: 1 }))
-            ]),
-            transition('true=>false', [
-                style({ opacity: 1 }),
-                animate('0.4s ease', style({ opacity: 0 }))
             ])
         ]),
         trigger('gameBoardFade', [    
@@ -87,6 +83,7 @@ export class GameComponent implements OnInit {
 
     timeUp(){
         this.gameState.timeUp = true;
+        this.gameState.correctWord = this.currentWord.word;
         this.gameState.active = false;
     }
 
@@ -224,8 +221,7 @@ export class GameComponent implements OnInit {
         this.gameState.incorrectEntry = false;
         this.gameState.timeUp = false;
         this.gameState.active= true;
-        
-        // this.shuffleWord(); 
+        this.gameState.correctWord = '';
     }
 
     onResize(event) {

@@ -10,4 +10,5 @@ export class GameState {
     timeLeft = 60;
     duration = 60;
     successWord: String = '';
+    correctWord: String = '';
 }

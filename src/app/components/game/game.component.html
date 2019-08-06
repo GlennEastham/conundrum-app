@@ -96,7 +96,7 @@
     <div class="success-text-holder">
         <div [@timeUp]="gameState.timeUp" class="success-text">Time up</div>
         <div [ngStyle]="{'height': smallDividerSize}"></div>
-        <div [@timeUp]="gameState.timeUp" class="success-text">The word was {{currentWord.word}}</div>
+        <div [@timeUp]="gameState.timeUp" class="success-text">The word was {{gameState.correctWord}}</div>
         <div [ngStyle]="{'height': smallDividerSize}"></div>
         <button [@timeUp]="gameState.timeUp" class="game-button-white" mat-raised-button (click)="loadNewGame()">New
             Word</button>
