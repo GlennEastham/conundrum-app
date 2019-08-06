@@ -8,12 +8,13 @@ import { MatGridListModule} from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AppComponent } from './app.component';
-import { SquareComponent } from './components/square/square.component';
+import { GameComponent } from './components/game/game.component';
+import { NgxFitTextModule } from 'ngx-fit-text';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SquareComponent
+    GameComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +24,8 @@ import { SquareComponent } from './components/square/square.component';
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxFitTextModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

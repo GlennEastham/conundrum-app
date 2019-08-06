@@ -25,7 +25,7 @@
                 (mouseenter)="hoverAction(reset)" (mouseleave)="leaveAction(reset)" (click)="resetWord()">
                 <svg version="1.1" viewBox="0 0 286.054 286.054">
                     <svg:path class="svg-action"
-                        [ngClass]="{'svg-action-hovering': reset.hovering, 'svg-action-disabled': selectionCount < 1}"
+                        [ngClass]="{'svg-action-hovering': reset.hovering, 'svg-action-disabled': gameState.selectionCount < 1}"
                         d="M143.027,0C64.04,0,0,64.04,0,143.027c0,78.996,64.04,143.027,143.027,143.027
                     s143.027-64.031,143.027-143.027C286.054,64.04,222.014,0,143.027,0z M143.027,259.236c-64.183,0-116.209-52.026-116.209-116.209
                     S78.844,26.818,143.027,26.818s116.209,52.026,116.209,116.209S207.21,259.236,143.027,259.236z M168.352,142.938l25.289-25.289
@@ -40,7 +40,7 @@
         <mat-grid-tile></mat-grid-tile>
         <mat-grid-tile>
             <span class="action-icon" [ngStyle]="{'width': iconSize, 'height': iconSize}">
-                <div class="clue-text">{{timeLeft}}</div>
+                <div class="clue-text">{{gameState.timeLeft}}</div>
             </span>
         </mat-grid-tile>
         <mat-grid-tile></mat-grid-tile>
@@ -88,15 +88,15 @@
 </div>
 <div class="success-container" [ngClass]="{'front': gameState.correctEntry}">
     <div class="success-text-holder">
-        <div [@success]="gameState.correctEntry" (@success.done)="loadNewGame()" class="success-text">{{successWord}}
+        <div [@success]="gameState.correctEntry" (@success.done)="loadNewGame()" class="success-text">{{gameState.successWord}}
         </div>
     </div>
 </div>
 <div class="success-container" [ngClass]="{'front': gameState.timeUp}">
     <div class="success-text-holder">
-        <div [@timeUp]="gameState.timeUp" class="success-text">Times up</div>
+        <div [@timeUp]="gameState.timeUp" class="success-text">Time up</div>
         <div [ngStyle]="{'height': smallDividerSize}"></div>
-        <div [@timeUp]="gameState.timeUp" class="success-text">The word was {{currentWord.word}}</div>
+        <div [@timeUp]="gameState.timeUp" class="success-text">The word was {{gameState.correctWord}}</div>
         <div [ngStyle]="{'height': smallDividerSize}"></div>
         <button [@timeUp]="gameState.timeUp" class="game-button-white" mat-raised-button (click)="loadNewGame()">New
             Word</button>

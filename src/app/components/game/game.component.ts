@@ -11,9 +11,9 @@ import words from "../../../assets/conundrums_nine.json";
 import successWords from "../../../assets/successWords.json";
 
 @Component({
-    selector: 'app-square',
-    templateUrl: './square.component.html',
-    styleUrls: ['./square.component.scss'],
+    selector: 'game',
+    templateUrl: './game.component.html',
+    styleUrls: ['./game.component.scss'],
     animations: [
         trigger('shake', [
             transition('false=>true', animate('1.5s ease', keyframes([
@@ -41,10 +41,6 @@ import successWords from "../../../assets/successWords.json";
             transition('false=>true', [
                 style({ opacity: 0 }),
                 animate('1.1s ease', style({ opacity: 1 }))
-            ]),
-            transition('true=>false', [
-                style({ opacity: 1 }),
-                animate('0.4s ease', style({ opacity: 0 }))
             ])
         ]),
         trigger('gameBoardFade', [    
@@ -60,7 +56,7 @@ import successWords from "../../../assets/successWords.json";
     ]
 })
 
-export class SquareComponent implements OnInit {
+export class GameComponent implements OnInit {
     squares: Square[];
     entries: Entry[];
     actions: Action[];
@@ -70,24 +66,15 @@ export class SquareComponent implements OnInit {
     shuffle: Action = new Action;
     getNew: Action = new Action;
     reset: Action = new Action;
-    firstAvailableEntryPoint = 0;
-    selectionCount = 0;
-    timeLeft = 60;
-    duration = 60;
-    timerRate;
-    menuColumns;
     iconSize: String = '50px';
     dividerSize: String = '60px';
     smallDividerSize: String = '30px';
-    successWord: String = '';
-    interval;
     constructor(private wordService: WordService) { }
 
     startTimer() {
-        this.interval = setInterval(() => {
-            this.timerRate = 1 - (this.timeLeft - 1) / this.duration;
-            if(this.timeLeft > 0) {
-                this.timeLeft--;
+        setInterval(() => {
+            if(this.gameState.timeLeft > 0) {
+                this.gameState.timeLeft--;
             } else {
                 this.timeUp();
             }
@@ -96,6 +83,7 @@ export class SquareComponent implements OnInit {
 
     timeUp(){
         this.gameState.timeUp = true;
+        this.gameState.correctWord = this.currentWord.word;
         this.gameState.active = false;
     }
 
@@ -103,27 +91,27 @@ export class SquareComponent implements OnInit {
         square.selected = !square.selected;
         square.hovering = false;
         if (square.selected) {
-            this.entries[this.firstAvailableEntryPoint].letter = square.letter;
-            this.entries[this.firstAvailableEntryPoint].letterPath = square.letterPath;
-            this.entries[this.firstAvailableEntryPoint].squareID = square.id;
-            this.entries[this.firstAvailableEntryPoint].selected = true;
-            square.entryID = this.firstAvailableEntryPoint;
-            this.selectionCount++;
+            this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
+            this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
+            this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
+            this.entries[this.gameState.firstAvailableEntryPoint].selected = true;
+            square.entryID = this.gameState.firstAvailableEntryPoint;
+            this.gameState.selectionCount++;
         } else {
             this.gameState.incorrectEntry = false;
             this.entries[square.entryID].letterPath = '';
             this.entries[square.entryID].letter = '';
             this.entries[square.entryID].squareID = null;
             this.entries[square.entryID].selected = false;
-            this.selectionCount--;
+            this.gameState.selectionCount--;
         }
         for (let entry of this.entries) {
             if (entry.squareID === null) {
-                this.firstAvailableEntryPoint = entry.id;
+                this.gameState.firstAvailableEntryPoint = entry.id;
                 break;
             }
         }
-        if (this.selectionCount === this.currentWord.word.length) {
+        if (this.gameState.selectionCount === this.currentWord.word.length) {
             this.enteredWord.word = '';
             for (let entry of this.entries) {
                 this.enteredWord.word += entry.letter;
@@ -165,8 +153,8 @@ export class SquareComponent implements OnInit {
             entry.squareID = null;
             entry.selected = false;
         });
-        this.firstAvailableEntryPoint = 0;
-        this.selectionCount = 0;
+        this.gameState.firstAvailableEntryPoint = 0;
+        this.gameState.selectionCount = 0;
         this.reset.hovering = false;
     }
 
@@ -191,7 +179,7 @@ export class SquareComponent implements OnInit {
             }
         });
         if (word.word === checkWord.word) {
-            this.successWord = successWords[Math.floor(Math.random() * successWords.length)].word;
+            this.gameState.successWord = successWords[Math.floor(Math.random() * successWords.length)].word;
             this.gameState.correctEntry = true;
             this.gameState.active = false;
             return true;
@@ -199,11 +187,6 @@ export class SquareComponent implements OnInit {
             this.gameState.incorrectEntry = true;
             return false;
         }
-    }
-
-    loadNewGame() {
-        this.gameState.newBoardAnimation = true;
-        this.setupWord();
     }
 
     setupWord() {
@@ -231,15 +214,14 @@ export class SquareComponent implements OnInit {
         this.entries = tempEntries;
         this.currentWord = wordData;
         this.enteredWord.uuid = this.currentWord.uuid;
-        this.firstAvailableEntryPoint = 0;
-        this.selectionCount = 0;
-        this.timeLeft = this.duration;
+        this.gameState.firstAvailableEntryPoint = 0;
+        this.gameState.selectionCount = 0;
+        this.gameState.timeLeft = this.gameState.duration;
         this.gameState.correctEntry = false;
         this.gameState.incorrectEntry = false;
         this.gameState.timeUp = false;
         this.gameState.active= true;
-        
-        // this.shuffleWord(); 
+        this.gameState.correctWord = '';
     }
 
     onResize(event) {
@@ -248,7 +230,11 @@ export class SquareComponent implements OnInit {
         this.smallDividerSize = (event.target.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (event.target.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
-        this.menuColumns = (event.target.innerWidth <= 640) ? 6 : 6;
+    }
+
+    loadNewGame() {
+        this.gameState.newBoardAnimation = true;
+        this.setupWord();
     }
 
     ngOnInit() {
@@ -259,6 +245,5 @@ export class SquareComponent implements OnInit {
         this.smallDividerSize = (window.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (window.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (window.innerWidth <= 640) ? '35px' : '50px';
-        this.menuColumns = (window.innerWidth <= 640) ? 6 : 6;
     }
 }
