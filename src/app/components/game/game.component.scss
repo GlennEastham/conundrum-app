@@ -20,6 +20,13 @@
   cursor: pointer;
 }
 
+.home-screen-tile{
+  -webkit-box-shadow:26px 39px 23px 4px rgba(25,2,2,0.6);
+  -moz-box-shadow: 26px 39px 23px 4px rgba(25,2,2,0.6);
+  box-shadow: 26px 39px 23px 4px rgba(25,2,2,0.6);
+  border-radius: 12px;
+}
+
 .svg-square {
   fill: white;
   transition: all ease 0.3s;
@@ -27,7 +34,7 @@
 }
 
 .svg-square-hovering {
-    fill: #e0f5b9;
+    fill: #b3e5fc;
     transition: all ease 0.3s;
     cursor: pointer;
 }

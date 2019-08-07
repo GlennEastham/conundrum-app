@@ -1,5 +1,11 @@
 [
   {
+    "uuid": "3203e471-d524-41a5-941b-b13c5899be70",
+    "word": "sprinkles",
+    "conundrum": "presslink",
+    "clue": "I'll have some on my ice cream"
+  },
+  {
     "uuid": "88351e45-521c-4643-9e46-382fa009e33f",
     "word": "fostering",
     "conundrum": "forgetsin",
@@ -28,12 +34,6 @@
     "word": "algorithm",
     "conundrum": "glamorhit",
     "clue": "Will solve this faster"
-  },
-  {
-    "uuid": "3203e471-d524-41a5-941b-b13c5899be70",
-    "word": "sprinkles",
-    "conundrum": "presslink",
-    "clue": "I'll have some on my ice cream"
   },
   {
     "uuid": "f03577ee-d9f4-4e75-a7b9-85ed2acf5a50",
@@ -131,5 +131,4 @@
     "conundrum": "deathbuns",
     "clue": "They were cooked outside"
   }
-
 ]
