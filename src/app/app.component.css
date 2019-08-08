@@ -13,9 +13,8 @@
   }
   
   .example-sidenav-container {
-      background-color: #4fd0ff;
-    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    background: rgb(79,208,255);
+    background: radial-gradient(circle, rgba(79,208,255,1) 0%, rgba(79,171,204,1) 44%, rgba(54,142,175,1) 100%);
     flex: 1;
   }
   .mat-icon {
@@ -45,7 +44,5 @@
       z-index: 5;
   }
   .example-is-mobile .example-sidenav-container {
-    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-       `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }

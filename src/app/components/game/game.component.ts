@@ -5,7 +5,6 @@ import { Entry } from '../../models/Entry';
 import { GameState } from '../../models/GameState';
 import { Square } from '../../models/Square';
 import { Word } from '../../models/Word';
-import { WordService } from '../../services/word.service';
 import letterPaths from "../../../assets/letterPaths.json";
 import words from "../../../assets/conundrums_nine.json";
 import successWords from "../../../assets/successWords.json";
@@ -43,7 +42,7 @@ import successWords from "../../../assets/successWords.json";
                 animate('1.1s ease', style({ opacity: 1 }))
             ])
         ]),
-        trigger('gameBoardFade', [    
+        trigger('gameBoardFade', [
             state("true", style({ opacity: 1 })),
             state("false", style({ opacity: 0 })),
             transition('true=>false', [
@@ -54,23 +53,19 @@ import successWords from "../../../assets/successWords.json";
             ])
         ]),
         trigger('titleScreenEntrance', [
-            transition('void => *', [ query('.home-screen-tile , mat-grid-tile',style({ transform: 'translateX(-600px) rotate(0)', opacity: 0})),
+            transition('void => *', [query('.home-screen-tile , mat-grid-tile', style({ transform: 'translateX(-1000px) rotate(0)', opacity: 0 })),
             query('.home-screen-tile, mat-grid-tile',
-              stagger('150ms ease-in', [
-                animate('400ms ease-out', style({ transform: 'translateX(0) rotate(720deg)', opacity: 1}))
-            ]))])
+                stagger('150ms ease-in', [
+                    animate('400ms ease-out', style({ transform: 'translateX(0) rotate(720deg)', opacity: 1 }))
+                ]))])
         ]),
-        trigger('wobbleAnimation', [
-            transition('false<=>true', animate('2s ease', keyframes([
-                style({ transform: 'translateX(0) rotate(-4deg)', offset: 0 }),
-                style({ transform: 'translateX(2%) rotate(-8deg)', offset: 0.15 }),
-                style({ transform: 'translateX(4%) rotate(4deg)', offset: 0.3 }),
-                style({ transform: 'translateX(2%) rotate(-8deg)', offset: 0.45 }),
-                style({ transform: 'translateX(4%) rotate(4deg)', offset: 0.6 }),
-                style({ transform: 'translateX(2%) rotate(-8deg)', offset: 0.85 }),
-                style({ transform: 'translateX(0) rotate(-4deg)', offset: 1 })
-            ])))
-        ])
+        trigger('fadeIn', [
+            state("false", style({ opacity: 0 })),
+            transition('false=>true', [
+                style({ opacity: 0 }),
+                animate('2.1s ease', style({ opacity: 1 }))
+            ])
+        ]),
     ]
 })
 
@@ -78,8 +73,7 @@ export class GameComponent implements OnInit {
     squares: Square[];
     entries: Entry[];
     actions: Action[];
-    homeScreenTiles: Square[];
-    titleScreenShown = false;
+    titleScreenTiles: Square[];
     gameState: GameState = new GameState;
     currentWord: Word;
     enteredWord: Word = new Word;
@@ -89,21 +83,20 @@ export class GameComponent implements OnInit {
     iconSize: String = '50px';
     dividerSize: String = '60px';
     smallDividerSize: String = '30px';
-    homeScreen = true;
-    wobble = false;
-    constructor(private wordService: WordService) { }
+    titleScreenTileLarge: Boolean = true;
+    constructor() { }
 
     startTimer() {
         setInterval(() => {
-            if(this.gameState.timeLeft > 0) {
+            if (this.gameState.timeLeft > 0) {
                 this.gameState.timeLeft--;
             } else {
                 this.timeUp();
             }
-        },1000)
+        }, 1000)
     }
 
-    timeUp(){
+    timeUp() {
         this.gameState.timeUp = true;
         this.gameState.correctWord = this.currentWord.word;
         this.gameState.active = false;
@@ -113,20 +106,19 @@ export class GameComponent implements OnInit {
         square.selected = !square.selected;
         square.hovering = false;
         if (square.selected) {
-            if(entryPoint){
+            if (entryPoint) {
                 this.entries[entryPoint].letter = square.letter;
                 this.entries[entryPoint].letterPath = square.letterPath;
                 this.entries[entryPoint].squareID = square.id;
                 this.entries[entryPoint].selected = true;
                 square.entryID = entryPoint;
-            }else{
+            } else {
                 this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
                 this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
                 this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
                 this.entries[this.gameState.firstAvailableEntryPoint].selected = true;
                 square.entryID = this.gameState.firstAvailableEntryPoint;
             }
-           
             this.gameState.selectionCount++;
         } else {
             this.gameState.incorrectEntry = false;
@@ -167,39 +159,6 @@ export class GameComponent implements OnInit {
     leaveAction(action: Action) {
         action.hovering = false;
     }
-
-    // getHint() {
-    //     let correctWord =  this.currentWord.word.split("");
-    //     let availableSquares = [];
-    //     let correctSquares = [];
-    //     this.squares.forEach((square) => {
-    //          //unselected or incorrect squares;
-    //         if(square.selected){
-    //             if(correctWord[square.entryID] === square.letter){
-    //                 correctSquares.push(square);
-    //             }else{
-    //                 availableSquares.push(square);
-    //             }
-    //         }else{
-    //             availableSquares.push(square);
-    //         }
-    //     });
-
-    //     let i = availableSquares.length;
-    //     let randomSquare = availableSquares[Math.floor(Math.random() * (i))]
-    //     if(randomSquare.selected){
-    //         this.selectSquare(randomSquare)
-    //     }
-
-    //     console.log( correctWord);
-    //     console.log(randomSquare.letter);
-    //     this.squares.forEach((square) => {
-    //         //Check index AND letter matches for words containing the same letter more than once
-    //         if(randomSquare.letter === correctWord[square.id] && !square.entryID){
-    //             this.selectSquare(square, correctWord.indexOf(randomSquare.letter));
-    //         }
-    //     });
-    // }
 
     newWord() {
         this.getNew.hovering = false;
@@ -286,30 +245,26 @@ export class GameComponent implements OnInit {
         this.gameState.incorrectEntry = false;
         this.gameState.timeUp = false;
         this.gameState.correctWord = '';
+        this.gameState.active = true;
     }
 
-    getTitleScreen(){
+    getTitleScreen() {
         const titleScreenWord = "conundrum";
         let tempScreenTiles = [];
         let j = 0;
         for (let letter of titleScreenWord) {
             let letterObject = {};
             letterObject = {
-                id: j, letter: letter, letterPath: letterPaths[letter], selected: false, entryID: null
+                id: j, letter: letter, letterPath: letterPaths[letter], animationState: null
             }
             j++;
             tempScreenTiles.push(letterObject);
         }
-
         return tempScreenTiles;
     }
 
-    tileScreenEntranceDone(event){
-        this.titleScreenShown = true;
-    }
-
-    onWobbleDone($event) {
-          this.wobble = !this.wobble;
+    titleScreenAnimationDone() {
+        this.gameState.titleScreenShown = true;
     }
 
     onResize(event) {
@@ -318,21 +273,27 @@ export class GameComponent implements OnInit {
         this.smallDividerSize = (event.target.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (event.target.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
+        this.titleScreenTileLarge = (event.target.innerWidth <= 640) ? false : true;
+    }
+
+    onOrientationChange(event) {
+        this.titleScreenTileLarge = (event.target.innerWidth <= 640) ? false : true;
     }
 
     loadNewGame() {
         this.gameState.newBoardAnimation = true;
+        this.gameState.titleScreen = false;
         this.setupWord();
     }
 
     ngOnInit() {
-        this.homeScreenTiles = this.getTitleScreen();
-        // this.setupWord();
-        // this.startTimer();
+        this.titleScreenTiles = this.getTitleScreen();
+        this.startTimer();
         this.dividerSize = (window.innerWidth <= 640) ? '100px' : '60px';
         this.dividerSize = (window.innerHeight <= 360) ? '40px' : this.dividerSize;
         this.smallDividerSize = (window.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (window.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (window.innerWidth <= 640) ? '35px' : '50px';
+        this.titleScreenTileLarge = (window.innerWidth <= 640) ? false : true;
     }
 }

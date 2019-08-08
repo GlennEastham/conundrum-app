@@ -4,7 +4,7 @@
            
                 <mat-list-item class="mat-list-header">
                     <div style="padding-left: 8px; padding-bottom: 8px;">
-                    <button id="drawer-menu-button" class="conundrum-drawer-menu-button" mat-icon-button (click)="snav.close()">
+                    <button id="drawer-menu-button" class="conundrum-drawer-menu-button" mat-icon-button (click)="snav.toggle()">
                         <button id="drawer-menu-button-inside" mat-icon-button aria-label="Drawer Menu Button">
                             <mat-icon>menu</mat-icon>
                         </button>
@@ -158,7 +158,7 @@
             </mat-nav-list> -->
         </mat-drawer>
         <mat-drawer-content>
-            <button id="conundrum-menu-button" class="conundrum-menu-button" mat-icon-button (click)="snav.open()">
+            <button id="conundrum-menu-button" class="conundrum-menu-button" mat-icon-button (click)="snav.toggle()">
                 <button id="conundrum-menu-button-inside" mat-icon-button aria-label="Menu Button">
                     <mat-icon>menu</mat-icon>
                 </button>

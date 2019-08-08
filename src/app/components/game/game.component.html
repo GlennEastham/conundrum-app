@@ -1,19 +1,31 @@
-<div *ngIf="homeScreen">
-    <mat-grid-list [@titleScreenEntrance]="homeScreenTiles.length" (@titleScreenEntrance.done)="tileScreenEntranceDone($event)"  class="item-container" cols="9" rowHeight="1:1" gutterSize="10">
-        <span *ngFor="let square of homeScreenTiles" >
-            <mat-grid-tile [@wobbleAnimation]="wobble" (@wobbleAnimation.done)="onWobbleDone($event)" (@titleScreenEntrance.done)="onWobbleDone($event)" class="home-screen-tile">
-                <div style="height: 100%; width: 100%" >
-                    <svg viewBox="0 0 512 512" >
-                        <svg:g transform="matrix(1.25 0 0 -1.25 0 45)">
-                            <svg:path class="svg-square-selected"
-                                d="M409.6-328.089c0-25.134-20.378-45.511-45.511-45.511H45.511C20.378-373.6,0-353.222,0-328.089 V-9.511C0,15.622,20.378,36,45.511,36h318.578C389.222,36,409.6,15.622,409.6-9.511V-328.089z" />
-                            <svg:path class="svg-letter" [attr.d]="square.letterPath" />
-                        </svg:g>
-                    </svg>
-                </div>
-            </mat-grid-tile>
-        </span>
-    </mat-grid-list>
+<div *ngIf="gameState.titleScreen">
+    <div class="title-screen-container">
+        <div class="title-content-holder">
+            <mat-grid-list [@titleScreenEntrance]="titleScreenTiles.length" (@titleScreenEntrance.done)="titleScreenAnimationDone()" class="item-container" cols="9"
+                rowHeight="1:1" gutterSize="10">
+                <span *ngFor="let square of titleScreenTiles">
+                    <mat-grid-tile (window:resize)="onResize($event)" class="home-screen-tile" [ngClass]="{
+                'home-screen-tile-lg': titleScreenTileLarge,
+                'home-screen-tile-sm': !titleScreenTileLarge
+            }">
+                        <div style="height: 100%; width: 100%">
+                            <svg viewBox="0 0 512 512">
+                                <svg:g transform="matrix(1.25 0 0 -1.25 0 45)">
+                                    <svg:path class="svg-title-square"
+                                        d="M409.6-328.089c0-25.134-20.378-45.511-45.511-45.511H45.511C20.378-373.6,0-353.222,0-328.089 V-9.511C0,15.622,20.378,36,45.511,36h318.578C389.222,36,409.6,15.622,409.6-9.511V-328.089z" />
+                                    <svg:path class="svg-title-letter" [attr.d]="square.letterPath" />
+                                </svg:g>
+                            </svg>
+                        </div>
+                    </mat-grid-tile>
+                </span>
+            </mat-grid-list>    
+            <div [ngStyle]="{'height': smallDividerSize}"></div>
+            <div [@fadeIn]="gameState.titleScreenShown">
+                <button class="game-button-white" mat-raised-button (click)="loadNewGame()">Start New Game</button>
+            </div>
+        </div>
+    </div>
 </div>
 <div *ngIf="gameState.active">
     <div [@gameBoardFade]="gameState.active" class="game-board">

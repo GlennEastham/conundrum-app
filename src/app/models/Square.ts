@@ -4,5 +4,6 @@ export class Square {
     letterPath:string;
     hovering:boolean;
     selected:boolean; 
-    entryID: number;
+    entryID:number;
+    animationState:boolean;
 }
