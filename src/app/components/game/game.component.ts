@@ -5,7 +5,6 @@ import { Entry } from '../../models/Entry';
 import { GameState } from '../../models/GameState';
 import { Square } from '../../models/Square';
 import { Word } from '../../models/Word';
-import { WordService } from '../../services/word.service';
 import letterPaths from "../../../assets/letterPaths.json";
 import words from "../../../assets/conundrums_nine.json";
 import successWords from "../../../assets/successWords.json";
@@ -15,6 +14,13 @@ import successWords from "../../../assets/successWords.json";
     templateUrl: './game.component.html',
     styleUrls: ['./game.component.scss'],
     animations: [
+        trigger('fadeIn', [
+            state("false", style({ opacity: 0 })),
+            transition('false=>true', [
+                style({ opacity: 0 }),
+                animate('2.1s ease', style({ opacity: 1 }))
+            ])
+        ]),
         trigger('shake', [
             transition('false=>true', animate('1.5s ease', keyframes([
                 style({ transform: 'translate3d(-1px, 0, 0)', offset: 0.1 }),
@@ -29,12 +35,20 @@ import successWords from "../../../assets/successWords.json";
             ]))),
         ]),
         trigger('success', [
-            state("false", style({ opacity: 0 })),
-            transition('false=>true', [
-                style({ fontSize: 30, opacity: 0 }),
-                animate('1.1s ease', style({ fontSize: 130, opacity: 1 }))
-            ])
+            transition('false=>true', animate('3s ease-out', keyframes([
+                style({ fontSize: 30, opacity: 0, offset: 0.1 }),
+                style({ fontSize: 60, opacity: 1, offset: 0.2 }),
+                style({ fontSize: 90, opacity: 1, offset: 0.3 }),
+                style({ fontSize: 120, opacity: 1, offset: 0.4 }),
+                style({ fontSize: 130, opacity: 1, offset: 0.5 }),
+                style({ fontSize: 130, opacity: 1, offset: 0.6 }),
+                style({ fontSize: 120, opacity: 1, offset: 0.7 }),
+                style({ fontSize: 90, opacity: 1, offset: 0.8 }),
+                style({ fontSize: 60, opacity: 0.2, offset: 0.9 }),
+                style({ fontSize: 0, opacity: 0, offset: 1 }),
+            ]))),
         ]),
+       
         trigger('timeUp', [
             state("true", style({ opacity: 1 })),
             state("false", style({ opacity: 0 })),
@@ -43,7 +57,7 @@ import successWords from "../../../assets/successWords.json";
                 animate('1.1s ease', style({ opacity: 1 }))
             ])
         ]),
-        trigger('gameBoardFade', [    
+        trigger('gameBoardFade', [
             state("true", style({ opacity: 1 })),
             state("false", style({ opacity: 0 })),
             transition('true=>false', [
@@ -52,7 +66,8 @@ import successWords from "../../../assets/successWords.json";
             transition('false=>true', [
                 animate('1.2s ease', style({ opacity: 1 })),
             ])
-        ])
+        ]),
+
     ]
 })
 
@@ -61,7 +76,7 @@ export class GameComponent implements OnInit {
     entries: Entry[];
     actions: Action[];
     gameState: GameState = new GameState;
-    currentWord: Word;
+    currentWord: Word = new Word;
     enteredWord: Word = new Word;
     shuffle: Action = new Action;
     getNew: Action = new Action;
@@ -69,33 +84,41 @@ export class GameComponent implements OnInit {
     iconSize: String = '50px';
     dividerSize: String = '60px';
     smallDividerSize: String = '30px';
-    constructor(private wordService: WordService) { }
+    constructor() { }
 
     startTimer() {
         setInterval(() => {
-            if(this.gameState.timeLeft > 0) {
+            if (this.gameState.timeLeft > 0) {
                 this.gameState.timeLeft--;
             } else {
                 this.timeUp();
             }
-        },1000)
+        }, 1000)
     }
 
-    timeUp(){
+    timeUp() {
         this.gameState.timeUp = true;
         this.gameState.correctWord = this.currentWord.word;
         this.gameState.active = false;
     }
 
-    selectSquare(square: Square) {
+    selectSquare(square: Square, entryPoint: number = null) {
         square.selected = !square.selected;
         square.hovering = false;
         if (square.selected) {
-            this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
-            this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
-            this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
-            this.entries[this.gameState.firstAvailableEntryPoint].selected = true;
-            square.entryID = this.gameState.firstAvailableEntryPoint;
+            if (entryPoint) {
+                this.entries[entryPoint].letter = square.letter;
+                this.entries[entryPoint].letterPath = square.letterPath;
+                this.entries[entryPoint].squareID = square.id;
+                this.entries[entryPoint].selected = true;
+                square.entryID = entryPoint;
+            } else {
+                this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
+                this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
+                this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
+                this.entries[this.gameState.firstAvailableEntryPoint].selected = true;
+                square.entryID = this.gameState.firstAvailableEntryPoint;
+            }
             this.gameState.selectionCount++;
         } else {
             this.gameState.incorrectEntry = false;
@@ -103,6 +126,7 @@ export class GameComponent implements OnInit {
             this.entries[square.entryID].letter = '';
             this.entries[square.entryID].squareID = null;
             this.entries[square.entryID].selected = false;
+            this.squares[square.entryID].entryID = null;
             this.gameState.selectionCount--;
         }
         for (let entry of this.entries) {
@@ -182,10 +206,8 @@ export class GameComponent implements OnInit {
             this.gameState.successWord = successWords[Math.floor(Math.random() * successWords.length)].word;
             this.gameState.correctEntry = true;
             this.gameState.active = false;
-            return true;
         } else {
             this.gameState.incorrectEntry = true;
-            return false;
         }
     }
 
@@ -197,7 +219,7 @@ export class GameComponent implements OnInit {
         for (let letter of wordData.conundrum) {
             let letterObject = {};
             letterObject = {
-                id: j, letter: letter, letterPath: letterPaths[letter], selected: false, enteredAtSquare: null
+                id: j, letter: letter, letterPath: letterPaths[letter], selected: false, entryID: null
             }
             j++;
             tempSquares.push(letterObject);
@@ -220,8 +242,9 @@ export class GameComponent implements OnInit {
         this.gameState.correctEntry = false;
         this.gameState.incorrectEntry = false;
         this.gameState.timeUp = false;
-        this.gameState.active= true;
         this.gameState.correctWord = '';
+        this.gameState.active = true;
+
     }
 
     onResize(event) {
@@ -230,15 +253,17 @@ export class GameComponent implements OnInit {
         this.smallDividerSize = (event.target.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (event.target.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
+
+    }
+
+    onOrientationChange(event) {
     }
 
     loadNewGame() {
-        this.gameState.newBoardAnimation = true;
         this.setupWord();
     }
 
     ngOnInit() {
-        this.setupWord();
         this.startTimer();
         this.dividerSize = (window.innerWidth <= 640) ? '100px' : '60px';
         this.dividerSize = (window.innerHeight <= 360) ? '40px' : this.dividerSize;

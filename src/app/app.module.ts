@@ -2,30 +2,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, RoutingComponents } from './app-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatGridListModule} from '@angular/material/grid-list';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule, MatToolbarModule, MatListModule, MatGridListModule, MatSidenavModule, MatIconModule } from '@angular/material';
 import { AppComponent } from './app.component';
-import { GameComponent } from './components/game/game.component';
-import { NgxFitTextModule } from 'ngx-fit-text';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent
+    RoutingComponents
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     MatGridListModule,
-    MatIconModule,
     MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatListModule,
     FlexLayoutModule,
-    HttpClientModule,
-    NgxFitTextModule.forRoot()
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

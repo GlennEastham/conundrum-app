@@ -1,11 +1,11 @@
 export class GameState {
-    correctEntry: Boolean;
-    incorrectEntry: Boolean;
+    correctEntry: Boolean = false;
+    incorrectEntry: Boolean = false;
     timeUp: Boolean = false;
     active: Boolean = false;
     newBoard: Boolean = false;
     newBoardAnimation: Boolean = false;
-    firstAvailableEntryPoint = 0;
+    firstAvailableEntryPoint: number = 0;
     selectionCount = 0;
     timeLeft = 60;
     duration = 60;

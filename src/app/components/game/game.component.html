@@ -88,7 +88,8 @@
 </div>
 <div class="success-container" [ngClass]="{'front': gameState.correctEntry}">
     <div class="success-text-holder">
-        <div [@success]="gameState.correctEntry" (@success.done)="loadNewGame()" class="success-text">{{gameState.successWord}}
+        <div [@success]="gameState.correctEntry" (@success.done)="loadNewGame()" class="success-text">
+            {{gameState.successWord}}
         </div>
     </div>
 </div>
