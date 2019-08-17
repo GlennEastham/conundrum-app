@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, transition, animate, style, keyframes, query, stagger } from '@angular/animations';
+import { trigger, state, transition, animate, style, query, stagger } from '@angular/animations';
 import { Square } from '../../models/Square';
-import { Word } from '../../models/Word';
 import letterPaths from "../../../assets/letterPaths.json";
-
 
 @Component({
     selector: 'titleScreen',
@@ -33,7 +31,12 @@ export class TitleComponent implements OnInit {
     titleScreenTileLarge: Boolean = true;
     titleScreen: Boolean = true; 
     titleScreenShown: Boolean = false;
+    difficulty: number = 9;
     constructor() { }
+
+    updateDifficulty(event){
+        this.difficulty = event.value;
+    }
 
     getTitleScreen() {
         const titleScreenWord = "conundrum";
@@ -65,6 +68,7 @@ export class TitleComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.difficulty = 9;
         this.titleScreenTiles = this.getTitleScreen();
         this.smallDividerSize = (window.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (window.innerHeight <= 360) ? '20px' : this.smallDividerSize;

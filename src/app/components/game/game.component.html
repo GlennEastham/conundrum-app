@@ -1,5 +1,5 @@
 <div [@gameBoardFade]="gameState.active" class="game-board">
-    <mat-grid-list class="animated item-container" [@shake]="gameState.incorrectEntry" cols="9" rowHeight="1:1"
+    <mat-grid-list class="animated item-container" [@shake]="gameState.incorrectEntry" cols="{{gameState.difficulty}}" rowHeight="1:1"
         gutterSize="10">
         <mat-grid-tile *ngFor="let entry of entries">
             <div style="height: 100%; width: 100%">
@@ -64,7 +64,7 @@
             <div class="clue-text">{{currentWord.clue}}</div>
         </mat-grid-tile>
     </mat-grid-list>
-    <mat-grid-list class="item-container" cols="9" rowHeight="1:1" gutterSize="10">
+    <mat-grid-list class="item-container" cols="{{gameState.difficulty}}" rowHeight="1:1" gutterSize="10">
         <mat-grid-tile *ngFor="let square of squares">
             <div style="height: 100%; width: 100%" (mouseenter)="hoverSquare(square)" (mouseleave)="leaveSquare(square)"
                 (click)="selectSquare(square)">

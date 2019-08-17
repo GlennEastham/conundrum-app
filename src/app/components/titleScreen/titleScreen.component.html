@@ -1,6 +1,7 @@
 <div class="title-screen-container">
     <div class="title-content-holder">
-        <mat-grid-list [@titleScreenEntrance]="titleScreenTiles.length" (@titleScreenEntrance.done)="titleScreenAnimationDone()" class="item-container" cols="9" rowHeight="1:1"
+        <mat-grid-list [@titleScreenEntrance]="titleScreenTiles.length"
+            (@titleScreenEntrance.done)="titleScreenAnimationDone()" class="item-container" cols="9" rowHeight="1:1"
             gutterSize="10">
             <span *ngFor="let square of titleScreenTiles">
                 <mat-grid-tile (window:resize)="onResize($event)" class="home-screen-tile" [ngClass]="{
@@ -19,8 +20,17 @@
             </span>
         </mat-grid-list>
         <div [ngStyle]="{'height': smallDividerSize}"></div>
+        <div [ngStyle]="{'height': smallDividerSize}"></div>
         <div [@fadeIn]="titleScreenShown">
-            <button class="game-button-white" mat-raised-button [routerLink]="['/game']">Click To Start</button>
+            <div class="title-screen-text">Difficulty</div>
+            <div [ngStyle]="{'height': smallDividerSize}"></div>
+            <mat-slider class="example-margin" max="9" min="7" (change)="updateDifficulty($event)" [(ngModel)]="difficulty" step="true"
+                thumbLabel="true">
+            </mat-slider>
+            <div [ngStyle]="{'height': smallDividerSize}"></div>
+            <div>
+                <button class="game-button-white" mat-raised-button [queryParams]="{difficulty: difficulty}" [routerLink]="['/game']">Start</button>
+            </div>
         </div>
     </div>
 </div>

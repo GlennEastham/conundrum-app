@@ -1,0 +1,327 @@
+
+  {
+    "9": [
+      {
+        "uuid": "3203e471-d524-41a5-941b-b13c5899be70",
+        "word": "sprinkles",
+        "conundrum": "presslink",
+        "clue": "I'll have some on my ice cream"
+      },
+      {
+        "uuid": "88351e45-521c-4643-9e46-382fa009e33f",
+        "word": "fostering",
+        "conundrum": "forgetsin",
+        "clue": "Not just looking after yourself"
+      },
+      {
+        "uuid": "f0a7f668-b515-43ab-8749-7b0cb850654f",
+        "word": "culminate",
+        "conundrum": "lunaticme",
+        "clue": "It's been building"
+      },
+      {
+        "uuid": "4b4eab9a-33ec-4d35-bca8-1378e01481cc",
+        "word": "absurdity",
+        "conundrum": "adirtybus",
+        "clue": "Quite ridiculous"
+      },
+      {
+        "uuid": "7598973f-7082-4515-9a0b-7d5ca616c605",
+        "word": "taxidermy",
+        "conundrum": "axemydirt",
+        "clue": "Let's not bury it"
+      },
+      {
+        "uuid": "e76570ee-a1db-404b-8f56-1a93031d40bb",
+        "word": "algorithm",
+        "conundrum": "glamorhit",
+        "clue": "Will solve this faster"
+      },
+      {
+        "uuid": "f03577ee-d9f4-4e75-a7b9-85ed2acf5a50",
+        "word": "dragonfly",
+        "conundrum": "foldangry",
+        "clue": "Fire breathing insect"
+      },
+      {
+        "uuid": "5f07b8d7-ed88-4e83-b3af-bfee9a141c4d",
+        "word": "lubricant",
+        "conundrum": "braincult",
+        "clue": "Should make it easier"
+      },
+      {
+        "uuid": "83087b12-1f3e-4650-86f5-932b91a9e66b",
+        "word": "syndicate",
+        "conundrum": "nicestday",
+        "clue": "We all won"
+      },
+      {
+        "uuid": "59277c98-e663-4e17-94da-af28df37d936",
+        "word": "dystopian",
+        "conundrum": "sanitypod",
+        "clue": "The future's bright?"
+      },
+      {
+        "uuid": "d15ade76-8469-4cce-93e4-f362f471c150",
+        "word": "oversight",
+        "conundrum": "toshgiver",
+        "clue": "I forgot about that"
+      },
+      {
+        "uuid": "c088b454-8f72-4e04-861a-4244629b2047",
+        "word": "thumbnail",
+        "conundrum": "albumhint",
+        "clue": "Press to see and see when you press"
+      },
+      {
+        "uuid": "aa64ee11-58f7-48d5-8bda-5fb3c78af5e4",
+        "word": "hailstorm",
+        "conundrum": "mothslair",
+        "clue": "There were thousands in the air"
+      },
+      {
+        "uuid": "5569804f-80a5-44ee-b0b5-c8119774dc1e",
+        "word": "bedspring",
+        "conundrum": "gripbends",
+        "clue": "Should keep you comfortable"
+      },
+      {
+        "uuid": "0babded7-357a-4145-af25-cbf24be95898",
+        "word": "shipwreck",
+        "conundrum": "pickshrew",
+        "clue": "There may be some treasure in that"
+      },
+      {
+        "uuid": "a1183e02-24fc-4e95-a7c2-ba7ae5e2ff45",
+        "word": "brimstone",
+        "conundrum": "insertmob",
+        "clue": "Wrath of the Gods"
+      },
+      {
+        "uuid": "b9d8dc0b-e926-41cb-a150-b61dc3cc6d0a",
+        "word": "uniformed",
+        "conundrum": "minorfeud",
+        "clue": "They all looked the same"
+      },
+      {
+        "uuid": "510a6cfd-b37f-4563-ac32-bd94d8a7ca63",
+        "word": "binocular",
+        "conundrum": "bluracoin",
+        "clue": "They made need adjusting"
+      },
+      {
+        "uuid": "2598c4b3-247c-4fe5-8841-e205c1cbe1a7",
+        "word": "copulated",
+        "conundrum": "adultcope",
+        "clue": "One way of doing it"
+      },
+      {
+        "uuid": "3c46d1f6-6d8e-4e60-a18d-75f73d6f09da",
+        "word": "supremacy",
+        "conundrum": "creamypus",
+        "clue": "He has some power"
+      },
+      {
+        "uuid": "ad70bf70-674f-43bc-94e7-e397c74dc928",
+        "word": "simulator",
+        "conundrum": "moralsuit",
+        "clue": "Just like the real thing"
+      },
+      {
+        "uuid": "d74fe5d9-cc70-42f5-9ed2-39758dfbb93f",
+        "word": "sunbathed",
+        "conundrum": "deathbuns",
+        "clue": "They were cooked outside"
+      }
+    ],
+    "8": [
+      {
+        "uuid": "1987ae20-3e89-40b9-8f27-9078464a373a",
+        "word": "whiplash",
+        "conundrum": "hipshawl",
+        "clue": "This could hurt your neck"
+      },
+      {
+        "uuid": "dd710fe6-8e90-403f-89b0-214d9f98e175",
+        "word": "wildcard",
+        "conundrum": "didcrawl",
+        "clue": "It could have been any in the deck"
+      },
+      {
+        "uuid": "ac5d8af9-75ee-41dc-b4e2-23d104aa6517",
+        "word": "warriors",
+        "conundrum": "arrowsir",
+        "clue": "A group of experienced fighters?"
+      },
+      {
+        "uuid": "bea931d2-af09-4b02-9e72-870d44b28061",
+        "word": "urinated",
+        "conundrum": "ruindate",
+        "clue": "Could have, if they saw you doing it"
+      },
+      {
+        "uuid": "4a1f476f-ab4c-49fa-9a31-918a0393d89d",
+        "word": "unicycle",
+        "conundrum": "uncleicy",
+        "clue": "I would not recommend riding this on the ice"
+      },
+      {
+        "uuid": "49cbd5e7-9f44-4e6b-8bf9-9fbd1684a125",
+        "word": "twisting",
+        "conundrum": "titswing",
+        "clue": "They will depending how fast you do this"
+      },
+      {
+        "uuid": "14bb5d9b-1b71-46d3-ac82-b7c633bd2ecf",
+        "word": "tranquil",
+        "conundrum": "quiltran",
+        "clue": "A nice calm relaxing scene"
+      },
+      {
+        "uuid": "8a47b385-8d9f-4131-92cb-894549e35c66",
+        "word": "thriller",
+        "conundrum": "hertrill",
+        "clue": "Very exciting"
+      },
+      {
+        "uuid": "1d65baef-365e-428c-b0ce-8162533cdba0",
+        "word": "submerge",
+        "conundrum": "beermugs",
+        "clue": "Descend before the surface"
+      },
+      {
+        "uuid": "8043d9e1-049f-4325-9bbc-3c367d629bd8",
+        "word": "radiator",
+        "conundrum": "ratradio",
+        "clue": "Should keep you warm"
+      },
+      {
+        "uuid": "9ef952fc-5af8-4a25-ba35-51e8db84186e",
+        "word": "precious",
+        "conundrum": "ricesoup",
+        "clue": "Costs more than you think"
+      },
+      {
+        "uuid": "4044610b-28f0-471a-9b9c-b58289f10c19",
+        "word": "language",
+        "conundrum": "agealung",
+        "clue": "Smoking does this in any ..."
+      },
+      {
+        "uuid": "7d5f0841-b727-4561-a7ea-9fe83f04b8ff",
+        "word": "jeweller",
+        "conundrum": "jeerwell",
+        "clue": "You'll jeer when he tells you the price"
+      },
+      {
+        "uuid": "86d02be0-6239-4bf5-9b3f-cde7856249c9",
+        "word": "infrared",
+        "conundrum": "rarefind",
+        "clue": "It would be rare to see this"
+      },
+      {
+        "uuid": "05db6ab7-0d7b-44b1-bea2-7e523a794c61",
+        "word": "hopeless",
+        "conundrum": "eelshops",
+        "clue": "Finding a link between the clue and the word would be this"
+      },
+      {
+        "uuid": "ec341e82-4be5-42e0-beaf-03758c567aa2",
+        "word": "feminine",
+        "conundrum": "minefine",
+        "clue": "That was quite ladylike"
+      },
+      {
+        "uuid": "4ac0ae52-d7a1-4a0d-9e7b-bfcd3936208f",
+        "word": "energise",
+        "conundrum": "seereign",
+        "clue": "Give it some more power"
+      },
+      {
+        "uuid": "1886c8d1-4729-44a2-b524-9cd15cd3fd13",
+        "word": "circular",
+        "conundrum": "icurlarc",
+        "clue": "It feels very round"
+      },
+      {
+        "uuid": "d973ea52-fb34-4aa6-8af9-56b079606ccf",
+        "word": "buttocks",
+        "conundrum": "stocktub",
+        "clue": "Forrest got shot there"
+      },
+      {
+        "uuid": "f714fb43-a426-4b9f-bca8-739887e3a86e",
+        "word": "ambition",
+        "conundrum": "miniboat",
+        "clue": "Some have lots, some have none"
+      },
+      {
+        "uuid": "5f0cd899-b5c7-4797-9c17-4a0e06784979",
+        "word": "accurate",
+        "conundrum": "acutrace",
+        "clue": "Wow, she's a good shot"
+      }
+    ],
+    "7": [
+      {
+        "uuid": "0d6c9ca6-dbac-4b50-8f81-704c5c130f6a",
+        "word": "alcoves",
+        "conundrum": "socalve",
+        "clue": "Hidden in the shadows"
+      },
+      {
+        "uuid": "3856e298-0ad3-4a2a-a926-1755321386c2",
+        "word": "bespoke",
+        "conundrum": "peeksob",
+        "clue": "Made just for me"
+      },
+      {
+        "uuid": "46b34ce2-e7ec-49ee-bb2f-88e9749c11b1",
+        "word": "charity",
+        "conundrum": "icyhart",
+        "clue": "There's no shame in taking it"
+      },
+      {
+        "uuid": "3c3a1ede-f6ff-466c-bee5-b58de3831cec",
+        "word": "departs",
+        "conundrum": "redtaps",
+        "clue": "Hidden in the shadows"
+      },
+      {
+        "uuid": "3093f432-38fa-4edd-920a-21914a7c2029",
+        "word": "endured",
+        "conundrum": "rudeend",
+        "clue": "Managed to put up with it"
+      },
+      {
+        "uuid": "4dc51644-7ea7-4859-9d75-2d7cb6031db5",
+        "word": "fortune",
+        "conundrum": "tenfour",
+        "clue": "Soldier of ..."
+      },
+      {
+        "uuid": "ff697a76-9c77-463d-8830-1b78dae929cd",
+        "word": "improve",
+        "conundrum": "ripmove",
+        "clue": "Try and get better"
+      },
+      {
+        "uuid": "f73ce6ad-8fc0-454d-9572-d9ba092e600a",
+        "word": "karaoke",
+        "conundrum": "oakrake",
+        "clue": "Sometimes it can sound like that"
+      },
+      {
+        "uuid": "e7a8ddba-1e00-4987-9011-12cbcc0d05e7",
+        "word": "nutcase",
+        "conundrum": "cutsane",
+        "clue": "You're no longer sane"
+      },
+      {
+        "uuid": "0f78fa63-0a80-42e1-b934-951c4f065e28",
+        "word": "pickled",
+        "conundrum": "pecklid",
+        "clue": "Makes the food last much longer"
+      } 
+    ]
+  }

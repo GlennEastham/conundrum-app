@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { trigger, state, transition, animate, style, keyframes } from '@angular/animations';
 import { Action } from '../../models/Action';
 import { Entry } from '../../models/Entry';
@@ -6,7 +7,7 @@ import { GameState } from '../../models/GameState';
 import { Square } from '../../models/Square';
 import { Word } from '../../models/Word';
 import letterPaths from "../../../assets/letterPaths.json";
-import words from "../../../assets/conundrums_nine.json";
+import words from "../../../assets/conundrums.json";
 import successWords from "../../../assets/successWords.json";
 
 @Component({
@@ -84,7 +85,7 @@ export class GameComponent implements OnInit {
     iconSize: String = '50px';
     dividerSize: String = '60px';
     smallDividerSize: String = '30px';
-    constructor() { }
+    constructor(private route: ActivatedRoute) { }
 
     startTimer() {
         setInterval(() => {
@@ -102,45 +103,44 @@ export class GameComponent implements OnInit {
         this.gameState.active = false;
     }
 
-    selectSquare(square: Square, entryPoint: number = null) {
+    async selectSquare(square: Square) {
         square.selected = !square.selected;
         square.hovering = false;
+       
         if (square.selected) {
-            if (entryPoint) {
-                this.entries[entryPoint].letter = square.letter;
-                this.entries[entryPoint].letterPath = square.letterPath;
-                this.entries[entryPoint].squareID = square.id;
-                this.entries[entryPoint].selected = true;
-                square.entryID = entryPoint;
-            } else {
-                this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
-                this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
-                this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
-                this.entries[this.gameState.firstAvailableEntryPoint].selected = true;
-                square.entryID = this.gameState.firstAvailableEntryPoint;
-            }
+            this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
+            this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
+            this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
+            this.squares[square.id].entryID  = this.gameState.firstAvailableEntryPoint;
             this.gameState.selectionCount++;
         } else {
             this.gameState.incorrectEntry = false;
-            this.entries[square.entryID].letterPath = '';
-            this.entries[square.entryID].letter = '';
-            this.entries[square.entryID].squareID = null;
-            this.entries[square.entryID].selected = false;
-            this.squares[square.entryID].entryID = null;
             this.gameState.selectionCount--;
         }
-        for (let entry of this.entries) {
-            if (entry.squareID === null) {
-                this.gameState.firstAvailableEntryPoint = entry.id;
-                break;
-            }
-        }
+
         if (this.gameState.selectionCount === this.currentWord.word.length) {
+            
             this.enteredWord.word = '';
             for (let entry of this.entries) {
                 this.enteredWord.word += entry.letter;
             }
             this.submitWord(this.enteredWord);
+        }
+
+        let firstEntryPointSet = false;
+        for (let entry of this.entries) {
+            if(!square.selected){
+                if(entry.squareID == square.id){
+                    entry.squareID = null;
+                    entry.letterPath = '';
+                    entry.letter = '';
+                    square.entryID = null;
+                }
+            }
+            if (entry.squareID == null && !firstEntryPointSet) {
+                this.gameState.firstAvailableEntryPoint = entry.id;
+                firstEntryPointSet = true;
+            }
         }
     }
 
@@ -175,7 +175,6 @@ export class GameComponent implements OnInit {
             entry.letterPath = '';
             entry.letter = '';
             entry.squareID = null;
-            entry.selected = false;
         });
         this.gameState.firstAvailableEntryPoint = 0;
         this.gameState.selectionCount = 0;
@@ -192,20 +191,22 @@ export class GameComponent implements OnInit {
     }
 
     getWord() {
-        return words[Math.floor(Math.random() * words.length)]
+        return words[this.gameState.difficulty][Math.floor(Math.random() * words[this.gameState.difficulty].length)]
     }
 
     submitWord(word: Word) {
         let checkWord: Word = new Word;
-        words.find((x) => {
+        words[this.gameState.difficulty].find((x) => {
             if (x.uuid === word.uuid) {
                 checkWord = x;
             }
         });
+        console.log(checkWord.word);
         if (word.word === checkWord.word) {
             this.gameState.successWord = successWords[Math.floor(Math.random() * successWords.length)].word;
             this.gameState.correctEntry = true;
             this.gameState.active = false;
+            this.gameState.timeLeft = 60;
         } else {
             this.gameState.incorrectEntry = true;
         }
@@ -253,7 +254,6 @@ export class GameComponent implements OnInit {
         this.smallDividerSize = (event.target.innerWidth <= 640) ? '50px' : '30px';
         this.smallDividerSize = (event.target.innerHeight <= 360) ? '20px' : this.smallDividerSize;
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
-
     }
 
     onOrientationChange(event) {
@@ -264,6 +264,17 @@ export class GameComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.route.queryParams.subscribe((params) => {
+            this.gameState.difficulty = params.difficulty;
+        });
+        if(this.gameState.difficulty > 9){
+            this.gameState.difficulty = 9;
+        }else if(this.gameState.difficulty < 7){
+            this.gameState.difficulty = 7;
+        }
+        if(isNaN(this.gameState.difficulty)){
+            this.gameState.difficulty = 9;
+        }
         this.startTimer();
         this.dividerSize = (window.innerWidth <= 640) ? '100px' : '60px';
         this.dividerSize = (window.innerHeight <= 360) ? '40px' : this.dividerSize;
