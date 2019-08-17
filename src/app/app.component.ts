@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, Component, OnDestroy, AfterViewInit } from '@angular/core';
-import { MatButtonModule, MatToolbarModule, MatListModule, MatGridListModule, MatSidenavModule, MatIconModule } from '@angular/material';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -1,82 +1,151 @@
-@import './assets/conundrum-theme';
+@import "./assets/conundrum-theme";
 
 @font-face {
-    font-family: ChewyRegular;
-    src: url("./assets/fonts/Nunito-ExtraBold.ttf") format("truetype");
+  font-family: ChewyRegular;
+  src: url("./assets/fonts/Nunito-ExtraBold.ttf") format("truetype");
 }
 
-body{
-    background: rgb(79,208,255);
-background: radial-gradient(circle, rgba(79,208,255,1) 0%, rgba(79,171,204,1) 44%, rgba(54,142,175,1) 100%);
-    margin: 0;
+body {
+  background: rgb(79, 208, 255);
+  background: radial-gradient(circle, rgba(79, 208, 255, 1) 0%, rgba(79, 171, 204, 1) 44%, rgba(54, 142, 175, 1) 100%);
+  margin: 0;
 }
 
-html, body{
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
-.container{
-     height: 100%;
+.container {
+  height: 100%;
 }
 
 .item {
-   max-width: 920px !important;
-   padding-left: 10px;
-   padding-right: 10px;
+  max-width: 920px !important;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 * {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-    
+
 input {
-    -webkit-user-select: auto !important;
-    -khtml-user-select: auto !important;
-    -moz-user-select: auto !important;
-    -ms-user-select: auto !important;
-    user-select: auto !important;
+  -webkit-user-select: auto !important;
+  -khtml-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-wrapper {
+  top: 18px;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+  height: 12px;
+  border-radius: 10px;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-background,
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  height: 100%;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: white;
+}
+
+.mat-accent .mat-slider-thumb {
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  bottom: -20px;
+  right: -20px;
+}
+
+.mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb, .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+    background-color: white !important;
+}
+
+.mat-slider-horizontal {
+    height: 48px;
+    min-width: 200px !important;
+}
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
+    height: 6px !important;
+}
+.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb, .mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label {
+    box-shadow: 5px 4px 5px -1px rgba(25, 2, 2, 0.6);
+}
+
+.mat-slider-horizontal {
+  height: 48px;
+  min-width: 200px;
+}
+.mat-slider-thumb-label {
+  transform: rotate(45deg) !important;
+  border-radius: 50% 50% 0 !important;
+}
+
+.mat-slider-thumb {
+  transform: scale(0) !important;
+}
+
+.mat-slider-thumb-label-text {
+  opacity: 1 !important;
+}
+
+.mat-accent .mat-slider-thumb-label {
+  background-color: white;
+}
+
+.mat-slider-thumb-label-text {
+  font-family: ChewyRegular;
+  font-size: 12px;
 }
 
 .lds-ripple {
-    display: inline-block;
-    position: absolute;
-    top: calc(50% - 32px);
-    left: calc(50% - 32px);
-    width: 128px;
-    height: 128px;
+  display: inline-block;
+  position: absolute;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  width: 128px;
+  height: 128px;
 }
 
 .lds-ripple div {
-    position: absolute;
-    border: 4px solid #353535;
-    opacity: 1;
-    border-radius: 50%;
-    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  position: absolute;
+  border: 4px solid #353535;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
 .lds-ripple div:nth-child(2) {
-    animation-delay: -0.5s;
+  animation-delay: -0.5s;
 }
 
 @keyframes lds-ripple {
-    0% {
-      top: 28px;
-      left: 28px;
-      width: 0;
-      height: 0;
-      opacity: 1;
-    }
-    100% {
-      top: -1px;
-      left: -1px;
-      width: 58px;
-      height: 58px;
-      opacity: 0;
-    }
+  0% {
+    top: 28px;
+    left: 28px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: -1px;
+    left: -1px;
+    width: 58px;
+    height: 58px;
+    opacity: 0;
+  }
 }

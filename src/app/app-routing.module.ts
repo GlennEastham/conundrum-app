@@ -5,7 +5,7 @@ import { TitleComponent } from './components/titleScreen/titleScreen.component';
 
 const routes: Routes = [
   { path: '', component: TitleComponent },
-  { path: 'game', component: GameComponent }
+  { path: 'game', component: GameComponent,  }
 ];
 
 @NgModule({
