@@ -49,7 +49,7 @@ import successWords from "../../../assets/successWords.json";
                 style({ fontSize: 0, opacity: 0, offset: 1 }),
             ]))),
         ]),
-       
+
         trigger('timeUp', [
             state("true", style({ opacity: 1 })),
             state("false", style({ opacity: 0 })),
@@ -87,7 +87,7 @@ export class GameComponent implements OnInit {
     smallDividerSize: String = '30px';
     constructor(private route: ActivatedRoute) { }
 
-    startTimer() {
+    startTimer () {
         setInterval(() => {
             if (this.gameState.timeLeft > 0) {
                 this.gameState.timeLeft--;
@@ -97,21 +97,27 @@ export class GameComponent implements OnInit {
         }, 1000)
     }
 
-    timeUp() {
+    timeUp () {
         this.gameState.timeUp = true;
         this.gameState.correctWord = this.currentWord.word;
         this.gameState.active = false;
     }
 
-    async selectSquare(square: Square) {
+    selectEntry (entry: Entry) {
+        if (entry.squareID != null) {
+            this.selectSquare(this.squares[entry.squareID])
+        }
+    }
+
+    async selectSquare (square: Square) {
         square.selected = !square.selected;
         square.hovering = false;
-       
+
         if (square.selected) {
             this.entries[this.gameState.firstAvailableEntryPoint].letter = square.letter;
             this.entries[this.gameState.firstAvailableEntryPoint].letterPath = square.letterPath;
             this.entries[this.gameState.firstAvailableEntryPoint].squareID = square.id;
-            this.squares[square.id].entryID  = this.gameState.firstAvailableEntryPoint;
+            this.squares[square.id].entryID = this.gameState.firstAvailableEntryPoint;
             this.gameState.selectionCount++;
         } else {
             this.gameState.incorrectEntry = false;
@@ -119,7 +125,7 @@ export class GameComponent implements OnInit {
         }
 
         if (this.gameState.selectionCount === this.currentWord.word.length) {
-            
+
             this.enteredWord.word = '';
             for (let entry of this.entries) {
                 this.enteredWord.word += entry.letter;
@@ -129,8 +135,8 @@ export class GameComponent implements OnInit {
 
         let firstEntryPointSet = false;
         for (let entry of this.entries) {
-            if(!square.selected){
-                if(entry.squareID == square.id){
+            if (!square.selected) {
+                if (entry.squareID == square.id) {
                     entry.squareID = null;
                     entry.letterPath = '';
                     entry.letter = '';
@@ -144,28 +150,28 @@ export class GameComponent implements OnInit {
         }
     }
 
-    hoverSquare(square: Square) {
+    hoverSquare (square: Square) {
         square.hovering = true;
     }
 
-    leaveSquare(square: Square) {
+    leaveSquare (square: Square) {
         square.hovering = false;
     }
 
-    hoverAction(action: Action) {
+    hoverAction (action: Action) {
         action.hovering = true;
     }
 
-    leaveAction(action: Action) {
+    leaveAction (action: Action) {
         action.hovering = false;
     }
 
-    newWord() {
+    newWord () {
         this.getNew.hovering = false;
         this.setupWord();
     }
 
-    resetWord() {
+    resetWord () {
         this.squares.forEach((square) => {
             square.hovering = false;
             square.selected = false;
@@ -181,7 +187,7 @@ export class GameComponent implements OnInit {
         this.reset.hovering = false;
     }
 
-    shuffleWord() {
+    shuffleWord () {
         let i = this.squares.length;
         while (i--) {
             const ri = Math.floor(Math.random() * (i + 1));
@@ -190,11 +196,11 @@ export class GameComponent implements OnInit {
         this.shuffle.hovering = false;
     }
 
-    getWord() {
+    getWord () {
         return words[this.gameState.difficulty][Math.floor(Math.random() * words[this.gameState.difficulty].length)]
     }
 
-    submitWord(word: Word) {
+    submitWord (word: Word) {
         let checkWord: Word = new Word;
         words[this.gameState.difficulty].find((x) => {
             if (x.uuid === word.uuid) {
@@ -212,7 +218,7 @@ export class GameComponent implements OnInit {
         }
     }
 
-    setupWord() {
+    setupWord () {
         const wordData = this.getWord();
         let tempSquares = [];
         let tempEntries = [];
@@ -248,7 +254,7 @@ export class GameComponent implements OnInit {
 
     }
 
-    onResize(event) {
+    onResize (event) {
         this.dividerSize = (event.target.innerWidth <= 640) ? '100px' : '60px';
         this.dividerSize = (event.target.innerHeight <= 360) ? '40px' : this.dividerSize;
         this.smallDividerSize = (event.target.innerWidth <= 640) ? '50px' : '30px';
@@ -256,23 +262,23 @@ export class GameComponent implements OnInit {
         this.iconSize = (event.target.innerWidth <= 640) ? '35px' : '50px';
     }
 
-    onOrientationChange(event) {
+    onOrientationChange (event) {
     }
 
-    loadNewGame() {
+    loadNewGame () {
         this.setupWord();
     }
 
-    ngOnInit() {
+    ngOnInit () {
         this.route.queryParams.subscribe((params) => {
             this.gameState.difficulty = params.difficulty;
         });
-        if(this.gameState.difficulty > 9){
+        if (this.gameState.difficulty > 9) {
             this.gameState.difficulty = 9;
-        }else if(this.gameState.difficulty < 7){
+        } else if (this.gameState.difficulty < 7) {
             this.gameState.difficulty = 7;
         }
-        if(isNaN(this.gameState.difficulty)){
+        if (isNaN(this.gameState.difficulty)) {
             this.gameState.difficulty = 9;
         }
         this.startTimer();

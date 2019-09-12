@@ -1,4 +1,4 @@
 export class Action {
-    action:string;
-    hovering:boolean;
+    action: string;
+    hovering: boolean;
 }

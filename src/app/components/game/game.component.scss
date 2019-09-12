@@ -1,4 +1,4 @@
-.game-button-white{
+.game-button-white {
   background-color: white;
   color: black;
   font-family: ChewyRegular;
@@ -27,9 +27,9 @@
 }
 
 .svg-square-hovering {
-    fill: #e8e8e8;;
-    transition: all ease 0.3s;
-    cursor: pointer;
+  fill: #e8e8e8;
+  transition: all ease 0.3s;
+  cursor: pointer;
 }
 
 .svg-square-selected {
@@ -47,23 +47,21 @@
   transition: all ease 0.3s;
 }
 
-.home-screen-tile-lg{
-  -webkit-box-shadow:19px 11px 18px 4px rgba(25,2,2,0.6);
-  -moz-box-shadow: 19px 11px 15px  4px rgba(25,2,2,0.6);
-  box-shadow: 19px 11px 18px 4px rgba(25,2,2,0.6);
+.home-screen-tile-lg {
+  -webkit-box-shadow: 19px 11px 18px 4px rgba(25, 2, 2, 0.6);
+  -moz-box-shadow: 19px 11px 15px 4px rgba(25, 2, 2, 0.6);
+  box-shadow: 19px 11px 18px 4px rgba(25, 2, 2, 0.6);
   border-radius: 12px;
-
 }
 
-.home-screen-tile-sm{
-  -webkit-box-shadow:10px 5px 9px 3px rgba(25,2,2,0.6);
-  -moz-box-shadow: 10px 5px 9px 3px rgba(25,2,2,0.6);
-  box-shadow: 10px 5px 9px 3px rgba(25,2,2,0.6);
+.home-screen-tile-sm {
+  -webkit-box-shadow: 10px 5px 9px 3px rgba(25, 2, 2, 0.6);
+  -moz-box-shadow: 10px 5px 9px 3px rgba(25, 2, 2, 0.6);
+  box-shadow: 10px 5px 9px 3px rgba(25, 2, 2, 0.6);
   border-radius: 2px;
-
 }
 
-.entry-underline{
+.entry-underline {
   border-radius: 20px;
   position: absolute;
   align-self: flex-end;
@@ -72,30 +70,30 @@
   width: 80%;
 }
 
-.action-icon{
+.action-icon {
   cursor: pointer;
 }
 
-.front{
+.front {
   z-index: 1 !important;
 }
 
-.svg-action{
+.svg-action {
   transition: all ease 0.3s;
   fill: #353535;
 }
 
-.svg-action-disabled{
+.svg-action-disabled {
   transition: all ease 0.3s;
   opacity: 0.1;
 }
 
-.svg-action-hovering{
+.svg-action-hovering {
   transition: all ease 0.3s;
-  fill: #585858
+  fill: #585858;
 }
 
-.success-text-holder{
+.success-text-holder {
   position: absolute;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -145,7 +143,7 @@
   top: 0;
 }
 
-.title-content-holder{
+.title-content-holder {
   width: 90%;
   max-width: 920px !important;
   text-align: center;

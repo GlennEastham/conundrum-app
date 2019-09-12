@@ -8,7 +8,7 @@ import { ChangeDetectorRef, Component, OnDestroy, AfterViewInit } from '@angular
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements AfterViewInit, OnDestroy {
-  title:string = 'conundrum-app';
+  title: string = 'conundrum-app';
   mobileQuery: MediaQueryList;
   over = 'over';
   private _mobileQueryListener: () => void;
@@ -19,11 +19,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy (): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
     this._focusMonitor.stopMonitoring(document.getElementById('conundrum-menu-button'));
     this._focusMonitor.stopMonitoring(document.getElementById('drawer-menu-button'));
     this._focusMonitor.stopMonitoring(document.getElementById('conundrum-menu-button-inside'));

@@ -1,10 +1,10 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
     <mat-drawer-container class="example-sidenav-container" [hasBackdrop]="true">
         <mat-drawer #snav [mode]="over">
-           
-                <mat-list-item class="mat-list-header">
-                    <div style="padding-left: 8px; padding-bottom: 8px;">
-                    <button id="drawer-menu-button" class="conundrum-drawer-menu-button" mat-icon-button (click)="snav.toggle()">
+            <mat-list-item class="mat-list-header">
+                <div style="padding-left: 8px; padding-bottom: 8px;">
+                    <button id="drawer-menu-button" class="conundrum-drawer-menu-button" mat-icon-button
+                        (click)="snav.toggle()">
                         <button id="drawer-menu-button-inside" mat-icon-button aria-label="Drawer Menu Button">
                             <mat-icon>menu</mat-icon>
                         </button>
@@ -150,12 +150,9 @@
                             </g>
                         </svg>
                     </div>
-                    </div>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-            <!-- <mat-nav-list>
-                <a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>
-            </mat-nav-list> -->
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
         </mat-drawer>
         <mat-drawer-content>
             <button id="conundrum-menu-button" class="conundrum-menu-button" mat-icon-button (click)="snav.toggle()">
@@ -167,8 +164,8 @@
                 <div class="item" fxFlex="100%" fxLayout="column">
                     <div class="item" fxFlex="100%">
                         <div>
-                           <router-outlet>
-                           </router-outlet>
+                            <router-outlet>
+                            </router-outlet>
                         </div>
                     </div>
                 </div>
